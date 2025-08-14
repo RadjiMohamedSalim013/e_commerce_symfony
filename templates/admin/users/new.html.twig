@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ user is defined ? 'Modifier utilisateur' : 'Nouvel utilisateur' }}{% endblock %}
+
+{% block body %}
+<h1>{{ user is defined ? 'Modifier utilisateur' : 'Nouvel utilisateur' }}</h1>
+
+{{ form_start(form) }}
+    {{ form_row(form.firstname) }}
+    {{ form_row(form.lastname) }}
+    {{ form_row(form.email) }}
+    {{ form_row(form.plainPassword) }}
+    <button class="btn btn-success mt-3">{{ user is defined ? 'Mettre à jour' : 'Créer' }}</button>
+{{ form_end(form) }}
+
+<a href="{{ path('admin_user_list') }}" class="btn btn-secondary mt-2">Retour à la liste</a>
+{% endblock %}

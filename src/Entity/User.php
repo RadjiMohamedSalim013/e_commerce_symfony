@@ -52,6 +52,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->addresses = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->roles = ['ROLE_USER']; // rôle par défaut
+        $this->createdAt = new \DateTimeImmutable(); // <-- ajoute cette ligne
+
     }
 
     public function getId(): ?int
