@@ -6,9 +6,11 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
-class User
+class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -21,8 +23,11 @@ class User
     #[ORM\Column(length: 100)]
     private ?string $lastname = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(length: 180, unique: true)]
     private ?string $email = null;
+
+    #[ORM\Column]
+    private array $roles = [];
 
     #[ORM\Column(length: 255)]
     private ?string $password = null;
@@ -46,6 +51,7 @@ class User
     {
         $this->addresses = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->roles = ['ROLE_USER']; // rôle par défaut
     }
 
     public function getId(): ?int
@@ -61,7 +67,6 @@ class User
     public function setFirstname(string $firstname): static
     {
         $this->firstname = $firstname;
-
         return $this;
     }
 
@@ -73,7 +78,6 @@ class User
     public function setLastname(string $lastname): static
     {
         $this->lastname = $lastname;
-
         return $this;
     }
 
@@ -85,20 +89,58 @@ class User
     public function setEmail(string $email): static
     {
         $this->email = $email;
-
         return $this;
     }
 
-    public function getPassword(): ?string
+    /**
+     * A visual identifier that represents this user.
+     */
+    public function getUserIdentifier(): string
     {
-        return $this->password;
+        return (string) $this->email;
+    }
+
+    /**
+     * @deprecated since Symfony 5.3, use getUserIdentifier instead
+     */
+    public function getUsername(): string
+    {
+        return $this->getUserIdentifier();
+    }
+
+    /**
+     * @return array<string>
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        if (!in_array('ROLE_USER', $roles, true)) {
+            $roles[] = 'ROLE_USER';
+        }
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+        return $this;
+    }
+
+    public function getPassword(): string
+    {
+        return $this->password ?? '';
     }
 
     public function setPassword(string $password): static
     {
         $this->password = $password;
-
         return $this;
+    }
+
+    public function eraseCredentials(): void
+    {
+        // Clear any temporary, sensitive data if needed
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -109,7 +151,6 @@ class User
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -127,19 +168,16 @@ class User
             $this->addresses->add($address);
             $address->setUser($this);
         }
-
         return $this;
     }
 
     public function removeAddress(Address $address): static
     {
         if ($this->addresses->removeElement($address)) {
-            // set the owning side to null (unless already changed)
             if ($address->getUser() === $this) {
                 $address->setUser(null);
             }
         }
-
         return $this;
     }
 
@@ -157,19 +195,16 @@ class User
             $this->orders->add($order);
             $order->setUser($this);
         }
-
         return $this;
     }
 
     public function removeOrder(Order $order): static
     {
         if ($this->orders->removeElement($order)) {
-            // set the owning side to null (unless already changed)
             if ($order->getUser() === $this) {
                 $order->setUser(null);
             }
         }
-
         return $this;
     }
 }

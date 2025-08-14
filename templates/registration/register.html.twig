@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+<h1>Inscription</h1>
+
+<form action="{{ path('register') }}" method="post">
+    <label for="firstname">Prénom :</label>
+    <input type="text" id="firstname" name="firstname" required>
+
+    <label for="lastname">Nom :</label>
+    <input type="text" id="lastname" name="lastname" required>
+
+    <label for="email">Email :</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">S’inscrire</button>
+</form>
+
+<p>Vous avez déjà un compte ? <a href="{{ path('login') }}">Connectez-vous ici</a>.</p>
+{% endblock %}

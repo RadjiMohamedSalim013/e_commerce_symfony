@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Dashboard Admin{% endblock %}
+
+{% block body %}
+<h1>Tableau de bord Admin</h1>
+
+<ul>
+    <li><a href="{{ path('admin_users') }}">Gérer les utilisateurs</a></li>
+    
+</ul>
+{% endblock %}

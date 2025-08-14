@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion{% endblock %}
+
+{% block body %}
+<h1>Connexion</h1>
+
+{# Affiche une erreur de login si elle existe #}
+{% if error %}
+    <div style="color: red;">
+        {{ error.messageKey|trans(error.messageData, 'security') }}
+    </div>
+{% endif %}
+
+<form action="{{ path('login') }}" method="post">
+    <label for="email">Email :</label>
+    <input type="email" id="email" name="_username" value="{{ last_username }}" required autofocus>
+
+    <label for="password">Mot de passe :</label>
+    <input type="password" id="password" name="_password" required>
+
+    {# CSRF token pour sécuriser le formulaire #}
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+    <button type="submit">Se connecter</button>
+</form>
+{% endblock %}
