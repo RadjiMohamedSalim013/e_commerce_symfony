@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Entity;
 
 use App\Repository\UserRepository;
@@ -36,24 +35,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeImmutable $createdAt = null;
 
     /**
-     * @var Collection<int, Address>
-     */
-    #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'user')]
-    private Collection $addresses;
-
-    /**
      * @var Collection<int, Order>
      */
     #[ORM\OneToMany(targetEntity: Order::class, mappedBy: 'user')]
     private Collection $orders;
 
+    /**
+     * @var Collection<int, Address>
+     */
+    #[ORM\OneToMany(targetEntity: Address::class, mappedBy: 'user')]
+    private Collection $adresses;
+
     public function __construct()
     {
-        $this->addresses = new ArrayCollection();
         $this->orders = new ArrayCollection();
+        $this->adresses = new ArrayCollection();
         $this->roles = ['ROLE_USER']; // rôle par défaut
-        $this->createdAt = new \DateTimeImmutable(); // <-- ajoute cette ligne
-
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -94,9 +92,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
@@ -110,13 +105,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this->getUserIdentifier();
     }
 
-    /**
-     * @return array<string>
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         if (!in_array('ROLE_USER', $roles, true)) {
             $roles[] = 'ROLE_USER';
         }
@@ -142,7 +133,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function eraseCredentials(): void
     {
-        // Clear any temporary, sensitive data if needed
+        // clear sensitive temporary data if needed
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -153,33 +144,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
         $this->createdAt = $createdAt;
-        return $this;
-    }
-
-    /**
-     * @return Collection<int, Address>
-     */
-    public function getAddresses(): Collection
-    {
-        return $this->addresses;
-    }
-
-    public function addAddress(Address $address): static
-    {
-        if (!$this->addresses->contains($address)) {
-            $this->addresses->add($address);
-            $address->setUser($this);
-        }
-        return $this;
-    }
-
-    public function removeAddress(Address $address): static
-    {
-        if ($this->addresses->removeElement($address)) {
-            if ($address->getUser() === $this) {
-                $address->setUser(null);
-            }
-        }
         return $this;
     }
 
@@ -205,6 +169,33 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         if ($this->orders->removeElement($order)) {
             if ($order->getUser() === $this) {
                 $order->setUser(null);
+            }
+        }
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Address>
+     */
+    public function getAdresses(): Collection
+    {
+        return $this->adresses;
+    }
+
+    public function addAdresse(Address $adresse): static
+    {
+        if (!$this->adresses->contains($adresse)) {
+            $this->adresses->add($adresse);
+            $adresse->setUser($this);
+        }
+        return $this;
+    }
+
+    public function removeAdresse(Address $adresse): static
+    {
+        if ($this->adresses->removeElement($adresse)) {
+            if ($adresse->getUser() === $this) {
+                $adresse->setUser(null);
             }
         }
         return $this;

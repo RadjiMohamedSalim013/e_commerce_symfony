@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Liste des adresses{% endblock %}
+
+{% block body %}
+<h1>Liste des adresses</h1>
+
+<a href="{{ path('admin_address_new') }}" class="btn btn-primary mb-3">Ajouter une adresse</a>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Utilisateur</th>
+            <th>Adresse</th>
+            <th>Ville</th>
+            <th>Pays</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for address in addresses %}
+        <tr>
+            <td>{{ address.id }}</td>
+            <td>{{ address.user.firstname }} {{ address.user.lastname }}</td>
+            <td>{{ address.adressLine }}</td>
+            <td>{{ address.city }}</td>
+            <td>{{ address.country }}</td>
+            <td>
+                <a href="{{ path('admin_address_edit', {id: address.id}) }}" class="btn btn-sm btn-warning">Éditer</a
+            </td>
+        </tr>
+    {% else %}
+        <tr>
+            <td colspan="6">Aucune adresse trouvée</td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
