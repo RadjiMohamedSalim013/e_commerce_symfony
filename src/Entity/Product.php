@@ -31,6 +31,9 @@ class Product
     #[ORM\Column]
     private ?int $stock = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
@@ -122,6 +125,19 @@ class Product
 
         return $this;
     }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+    
 
     /**
      * @return Collection<int, OrderItem>

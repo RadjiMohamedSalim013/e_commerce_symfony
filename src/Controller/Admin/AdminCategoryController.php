@@ -43,7 +43,7 @@ class AdminCategoryController extends AbstractController
 
                 try {
                     $imageFile->move(
-                        $this->getParameter('categories_images_directory'),
+                        $this->getParameter('categories_images_directory'), 
                         $newFilename
                     );
                 } catch(FileException $e){
