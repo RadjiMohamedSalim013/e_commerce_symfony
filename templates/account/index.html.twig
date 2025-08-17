@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Compte - {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">Mon Compte</h1>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <h2 class="text-xl font-semibold mb-4">Informations</h2>
+                        <p><strong>Email:</strong> {{ app.user.email }}</p>
+                        <p><strong>Nom:</strong> {{ app.user.firstName|default('Non défini') }} {{ app.user.lastName|default('') }}</p>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-xl font-semibold mb-4">Actions</h2>
+                        <div class="space-y-2">
+                            <a href="{{ path('account_profile') }}" class="block bg-[#BC5546] text-white px-4 py-2 rounded">Modifier le profil</a>
+                            <a href="{{ path('account_orders') }}" class="block bg-[#E4B15F] text-white px-4 py-2 rounded">Mes commandes</a>
+                            <a href="{{ path('app_logout') }}" class="block bg-red-600 text-white px-4 py-2 rounded">Déconnexion</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

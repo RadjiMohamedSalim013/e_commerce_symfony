@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon Profil - {{ parent() }}{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+            <div class="bg-white rounded-lg shadow-lg p-6">
+                <h1 class="text-3xl font-bold text-gray-900 mb-6">Mon Profil</h1>
+                
+                <div class="mb-4">
+                    <a href="{{ path('account') }}" class="text-[#BC5546] hover:underline">← Retour au compte</a>
+                </div>
+                
+                <div class="bg-gray-50 p-4 rounded">
+                    <h2 class="text-xl font-semibold mb-4">Informations personnelles</h2>
+                    <p><strong>Email:</strong> {{ app.user.email }}</p>
+                    <p><strong>Prénom:</strong> {{ app.user.firstName|default('Non défini') }}</p>
+                    <p><strong>Nom:</strong> {{ app.user.lastName|default('Non défini') }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

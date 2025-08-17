@@ -1,0 +1,82 @@
+{# templates/partials/banner.html.twig #}
+<div id="categoryCarousel" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="4000">
+  <style>
+    .carousel-item {
+      height: 500px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    
+    .carousel-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(to top, rgba(161, 33, 30, 0.9), transparent);
+      padding: 3rem;
+      color: white;
+    }
+    
+    .carousel-control-prev, 
+    .carousel-control-next {
+      width: 5%;
+      opacity: 1;
+    }
+    
+    .carousel-control-prev-icon, 
+    .carousel-control-next-icon {
+      background-color: rgba(241, 215, 200, 0.8);
+      border-radius: 50%;
+      padding: 1.5rem;
+      background-size: 40%;
+      transition: all 0.3s;
+    }
+    
+    .carousel-control-prev-icon:hover,
+    .carousel-control-next-icon:hover {
+      background-color: rgba(199, 26, 23, 0.9);
+    }
+    
+    .shop-now-btn {
+      background-color: #F1D7C8;
+      color: #A1211E;
+      border: none;
+      padding: 0.5rem 2rem;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+    
+    .shop-now-btn:hover {
+      background-color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+  </style>
+
+  <div class="carousel-inner rounded-3 overflow-hidden shadow-lg">
+    {% for category in categories %}
+      <div class="carousel-item {% if loop.first %}active{% endif %}" 
+           style="background-image: url('{{ asset('uploads/categories/' ~ category.image) }}')">
+        <div class="carousel-content">
+          <div class="container">
+            <h2 class="display-4 fw-bold mb-3">{{ category.name }}</h2>
+            <p class="lead mb-4 d-none d-md-block">{{ category.description|default('Découvrez notre sélection exclusive') }}</p>
+            <a href="{{ path('category_products', {id: category.id}) }}" class="btn shop-now-btn">
+              Voir la collection <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <button class="carousel-control-prev" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#categoryCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>

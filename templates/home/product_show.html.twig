@@ -1,0 +1,154 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ product.name }} - Ma Boutique{% endblock %}
+
+{% block body %}
+<style>
+  .product-container {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    overflow: hidden;
+    padding: 2rem;
+  }
+  
+  .product-image {
+    width: 100%;
+    height: 400px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: #F1D7C8;
+    padding: 20px;
+  }
+  
+  .product-title {
+    color: #A1211E;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  
+  .product-title:after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 3px;
+    background: #C71A17;
+    margin-top: 10px;
+  }
+  
+  .product-price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #A1211E;
+    margin: 1.5rem 0;
+  }
+  
+  .product-description {
+    line-height: 1.6;
+    margin-bottom: 2rem;
+  }
+  
+  .stock-info {
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: #F1D7C8;
+    border-radius: 4px;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+  }
+  
+  .quantity-input {
+    width: 80px !important;
+    text-align: center;
+    border: 1px solid #A1211E;
+  }
+  
+  .btn-add-to-cart {
+    background-color: #A1211E;
+    padding: 10px 25px;
+    font-weight: 600;
+    margin-right: 10px;
+  }
+  
+  .btn-add-to-cart:hover {
+    background-color: #C71A17;
+  }
+  
+  .btn-back-to-category {
+    border: 1px solid #A1211E;
+    color: #A1211E;
+    font-weight: 500;
+  }
+  
+  .btn-back-to-category:hover {
+    background-color: #F1D7C8;
+  }
+</style>
+
+<div class="container my-5">
+  <div class="product-container">
+    <div class="row">
+      <!-- Colonne Image -->
+      <div class="col-lg-6 mb-4 mb-lg-0">
+        {% if product.image %}
+          <img src="{{ asset('uploads/products/' ~ product.image) }}" 
+               alt="{{ product.name }}" class="product-image">
+        {% else %}
+          <div class="product-image d-flex align-items-center justify-content-center">
+            <i class="fas fa-box-open fa-5x" style="color: #A1211E;"></i>
+          </div>
+        {% endif %}
+      </div>
+      
+      <!-- Colonne Détails -->
+      <div class="col-lg-6">
+        <h1 class="product-title">{{ product.name }}</h1>
+        
+        <div class="product-price">
+          {{ product.price|number_format(0, ',', ' ') }} FCFA
+        </div>
+        
+        <div class="product-description">
+          {{ product.description }}
+        </div>
+        
+        <span class="stock-info">
+          <i class="fas fa-check-circle me-2"></i>
+          {% if product.stock > 10 %}
+            En stock ({{ product.stock }} disponibles)
+          {% elseif product.stock > 0 %}
+            Derniers articles disponibles ({{ product.stock }})
+          {% else %}
+            Rupture de stock
+          {% endif %}
+        </span>
+        
+        <form method="post" action="{{ path('cart_add', {id: product.id}) }}" class="mt-4">
+          <div class="d-flex align-items-center mb-4">
+            <label for="quantity" class="form-label me-3 mb-0">Quantité :</label>
+            <input type="number" id="quantity" name="quantity" 
+                   value="1" min="1" max="{{ product.stock }}" 
+                   class="form-control quantity-input"
+                   {% if product.stock <= 0 %}disabled{% endif %}>
+          </div>
+          
+          <div class="d-flex flex-wrap">
+            <button type="submit" class="btn btn-primary btn-add-to-cart"
+                    {% if product.stock <= 0 %}disabled{% endif %}>
+              <i class="fas fa-cart-plus me-2"></i>
+              Ajouter au panier
+            </button>
+            
+            <a href="{{ path('category_products', {id: product.category.id}) }}" 
+               class="btn btn-outline-secondary btn-back-to-category">
+              <i class="fas fa-arrow-left me-2"></i>
+              Retour à {{ product.category.name }}
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

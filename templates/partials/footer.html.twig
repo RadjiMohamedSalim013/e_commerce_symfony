@@ -1,0 +1,86 @@
+<footer class="mt-auto" style="background-color: #A1211E; color: white; padding: 40px 0 20px;">
+  <div class="container">
+    <div class="row">
+      <!-- Section Liens rapides -->
+      <div class="col-md-4 mb-4">
+        <h5 style="color: #F1D7C8; font-weight: 600; margin-bottom: 20px;">
+          <i class="fas fa-link me-2"></i>Liens rapides
+        </h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <a href="{{ path('home') }}" style="color: white; text-decoration: none;">
+              <i class="fas fa-chevron-right me-2" style="color: #F1D7C8; font-size: 0.8rem;"></i>Accueil
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="{{ path('product_list') }}" style="color: white; text-decoration: none;">
+              <i class="fas fa-chevron-right me-2" style="color: #F1D7C8; font-size: 0.8rem;"></i>Boutique
+            </a>
+          </li>
+          <li class="mb-2">
+            <a href="#" style="color: white; text-decoration: none;">
+              <i class="fas fa-chevron-right me-2" style="color: #F1D7C8; font-size: 0.8rem;"></i>Conditions générales
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Section Contact -->
+      <div class="col-md-4 mb-4">
+        <h5 style="color: #F1D7C8; font-weight: 600; margin-bottom: 20px;">
+          <i class="fas fa-envelope me-2"></i>Contact
+        </h5>
+        <ul class="list-unstyled">
+          <li class="mb-2">
+            <i class="fas fa-map-marker-alt me-2" style="color: #F1D7C8;"></i>123 Rue Commerce, Paris
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-phone me-2" style="color: #F1D7C8;"></i>+33 1 23 45 67 89
+          </li>
+          <li class="mb-2">
+            <i class="fas fa-envelope me-2" style="color: #F1D7C8;"></i>contact@mon-ecommerce.com
+          </li>
+        </ul>
+      </div>
+
+      <!-- Section Réseaux sociaux -->
+      <div class="col-md-4 mb-4">
+        <h5 style="color: #F1D7C8; font-weight: 600; margin-bottom: 20px;">
+          <i class="fas fa-share-alt me-2"></i>Réseaux sociaux
+        </h5>
+        <div class="social-icons">
+          <a href="#" class="me-3" style="color: white; font-size: 1.5rem;">
+            <i class="fab fa-facebook-f"></i>
+          </a>
+          <a href="#" class="me-3" style="color: white; font-size: 1.5rem;">
+            <i class="fab fa-twitter"></i>
+          </a>
+          <a href="#" class="me-3" style="color: white; font-size: 1.5rem;">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="#" style="color: white; font-size: 1.5rem;">
+            <i class="fab fa-pinterest-p"></i>
+          </a>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="mt-4">
+          <h6 style="color: #F1D7C8; font-weight: 600;">Newsletter</h6>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Votre email" aria-label="Email">
+            <button class="btn" type="button" style="background-color: #C71A17; color: white;">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Copyright -->
+    <div class="border-top pt-3" style="border-color: rgba(241, 215, 200, 0.3) !important;">
+      <p class="text-center mb-0">
+        &copy; {{ "now"|date("Y") }} Mon E-commerce - Tous droits réservés
+      </p>
+    </div>
+  </div>
+</footer>
