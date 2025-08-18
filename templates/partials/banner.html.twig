@@ -1,82 +1,106 @@
-{# templates/partials/banner.html.twig #}
-<div id="categoryCarousel" class="carousel slide mb-5" data-bs-ride="carousel" data-bs-interval="4000">
-  <style>
-    .carousel-item {
-      height: 500px;
-      background-size: cover;
-      background-position: center;
-      position: relative;
-    }
-    
-    .carousel-content {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: linear-gradient(to top, rgba(161, 33, 30, 0.9), transparent);
-      padding: 3rem;
-      color: white;
-    }
-    
-    .carousel-control-prev, 
-    .carousel-control-next {
-      width: 5%;
-      opacity: 1;
-    }
-    
-    .carousel-control-prev-icon, 
-    .carousel-control-next-icon {
-      background-color: rgba(241, 215, 200, 0.8);
-      border-radius: 50%;
-      padding: 1.5rem;
-      background-size: 40%;
-      transition: all 0.3s;
-    }
-    
-    .carousel-control-prev-icon:hover,
-    .carousel-control-next-icon:hover {
-      background-color: rgba(199, 26, 23, 0.9);
-    }
-    
-    .shop-now-btn {
-      background-color: #F1D7C8;
-      color: #A1211E;
-      border: none;
-      padding: 0.5rem 2rem;
-      font-weight: 600;
-      transition: all 0.3s;
-    }
-    
-    .shop-now-btn:hover {
-      background-color: white;
-      transform: translateY(-3px);
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-    }
-  </style>
-
-  <div class="carousel-inner rounded-3 overflow-hidden shadow-lg">
+<div id="categoryCarousel" class="relative rounded-xl overflow-hidden shadow-xl mb-12" data-carousel="static">
+  <div class="relative h-96 md:h-[500px] overflow-hidden">
     {% for category in categories %}
-      <div class="carousel-item {% if loop.first %}active{% endif %}" 
-           style="background-image: url('{{ asset('uploads/categories/' ~ category.image) }}')">
-        <div class="carousel-content">
-          <div class="container">
-            <h2 class="display-4 fw-bold mb-3">{{ category.name }}</h2>
-            <p class="lead mb-4 d-none d-md-block">{{ category.description|default('Découvrez notre sélection exclusive') }}</p>
-            <a href="{{ path('category_products', {id: category.id}) }}" class="btn shop-now-btn">
-              Voir la collection <i class="fas fa-arrow-right ms-2"></i>
-            </a>
-          </div>
+    <div class="hidden duration-700 ease-in-out" data-carousel-item {% if loop.first %}data-active{% endif %}>
+      <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('{{ asset('uploads/categories/' ~ category.image) }}')"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-[#5C8001]/90 via-[#5C8001]/30 to-transparent"></div>
+      <div class="relative z-10 h-full flex items-end pb-12 md:pb-16 lg:pb-20 px-6 md:px-12">
+        <div class="max-w-2xl">
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-3 drop-shadow-lg">{{ category.name }}</h2>
+          <p class="text-white/90 mb-6 text-lg md:text-xl drop-shadow-md hidden md:block">
+            {{ category.description|default('Découvrez notre sélection exclusive') }}
+          </p>
+          <a href="{{ path('category_products', {id: category.id}) }}" 
+             class="inline-flex items-center px-6 py-3 bg-[#F3DE2C] hover:bg-white text-[#5C8001] font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
+            Voir la collection
+            <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+            </svg>
+          </a>
         </div>
       </div>
+    </div>
     {% endfor %}
   </div>
 
-  <button class="carousel-control-prev" type="button" data-bs-target="#categoryCarousel" data-bs-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Previous</span>
+  <!-- Boutons de navigation -->
+  <button type="button" 
+          class="absolute top-1/2 left-4 z-30 flex items-center justify-center h-10 w-10 rounded-full bg-white/30 hover:bg-white/50 backdrop-blur-sm transition-all"
+          data-carousel-prev>
+    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+    </svg>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#categoryCarousel" data-bs-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="visually-hidden">Next</span>
+  <button type="button" 
+          class="absolute top-1/2 right-4 z-30 flex items-center justify-center h-10 w-10 rounded-full bg-white/30 hover:bg-white/50 backdrop-blur-sm transition-all"
+          data-carousel-next>
+    <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+    </svg>
   </button>
+
+  <!-- Indicateurs -->
+  <div class="absolute bottom-4 left-1/2 z-30 flex -translate-x-1/2 space-x-2">
+    {% for category in categories %}
+    <button type="button" 
+            class="h-2 w-8 rounded-full bg-white/30 hover:bg-white/50 transition-all"
+            data-carousel-indicator
+            {% if loop.first %}data-active{% endif %}></button>
+    {% endfor %}
+  </div>
 </div>
+
+<script>
+  // Script pour le carrousel personnalisé
+  document.addEventListener('DOMContentLoaded', function() {
+    const carousel = document.querySelector('[data-carousel]');
+    const items = carousel.querySelectorAll('[data-carousel-item]');
+    const prevBtn = carousel.querySelector('[data-carousel-prev]');
+    const nextBtn = carousel.querySelector('[data-carousel-next]');
+    const indicators = carousel.querySelectorAll('[data-carousel-indicator]');
+    
+    let currentIndex = 0;
+    
+    function showItem(index) {
+      items.forEach((item, i) => {
+        item.classList.toggle('hidden', i !== index);
+        item.setAttribute('data-active', i === index);
+      });
+      
+      indicators.forEach((indicator, i) => {
+        indicator.classList.toggle('bg-white/50', i === index);
+        indicator.classList.toggle('bg-white/30', i !== index);
+        indicator.setAttribute('data-active', i === index);
+      });
+    }
+    
+    function nextItem() {
+      currentIndex = (currentIndex + 1) % items.length;
+      showItem(currentIndex);
+    }
+    
+    function prevItem() {
+      currentIndex = (currentIndex - 1 + items.length) % items.length;
+      showItem(currentIndex);
+    }
+    
+    // Auto-rotation si le carrousel est en mode "static"
+    if (carousel.getAttribute('data-carousel') === 'static') {
+      setInterval(nextItem, 5000);
+    }
+    
+    // Événements
+    nextBtn.addEventListener('click', nextItem);
+    prevBtn.addEventListener('click', prevItem);
+    
+    indicators.forEach((indicator, index) => {
+      indicator.addEventListener('click', () => {
+        currentIndex = index;
+        showItem(currentIndex);
+      });
+    });
+    
+    // Initialisation
+    showItem(0);
+  });
+</script>

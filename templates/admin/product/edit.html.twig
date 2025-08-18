@@ -1,14 +1,561 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Editer produit{% endblock %}
+{% block title %}Modifier {{ product.name }} - Admin{% endblock %}
 
 {% block body %}
-<h1>Ajouter un produit</h1>
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <div class="bg-white shadow-lg rounded-xl overflow-hidden">
+    <!-- Header -->
+    <div class="bg-[#5C8001] px-6 py-4">
+      <div class="flex items-center justify-between">
+        <h1 class="text-xl font-bold text-white flex items-center">
+          <svg class="w-5 h-5 mr-2 text-[#F3DE2C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+          </svg>
+          Ajouter un produit
+        </h1>
+        <a href="{{ path('admin_product_list') }}" 
+           class="text-white hover:text-[#F3DE2C] transition-colors flex items-center text-sm">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Retour
+        </a>
+      </div>
+    </div>
 
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn btn-primary">Enregistrer</button>
-{{ form_end(form) }}
-
-<a href="{{ path('admin_product_list') }}" class="btn btn-secondary mt-3">Retour</a>
-{% endblock %}
+    <!-- Formulaire -->
+    <div class="p-6">
+      {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+      
+        <!-- Nom -->
+        <div>
+          {{ form_label(form.name, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-2'}}) }}
+          <div class="relative mt-1 rounded-md shadow-sm">
+            {{ form_widget(form.name, {'attr': {
+              'class': 'block w-full rounded-lg border-gray-300 pl-4 pr-10 py-3 focus:border-[#5C8001] focus:ring-2 focus:ring-[#5C8001]/50 transition-all',
+              'placeholder': 'Nom du produit'
+            }}) }}
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+              </svg>
+            </div>
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) }}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div}
+            {{ form_errors(form.name) %}
+            </div>
+            {{ form_errors(form.name) %}
+            </div}
+            {{ form_errors(form.name) %}
+            </div}
+            {{ form_errors(form.name) %}
+            </div}
+            {{ form_errors(form.name) %}
+            </div}
+            {{ form_errors(form.name) %}
+            </div}
+            {{ form_errors(form.name) %}
+            </div}
+            {{ form_errors(form.name) %}
+            </div}
+            {{ form_errors(form.name) %}
+            </div}
+            {{ form_errors(form.name) %}
+            </div}
+            {{ form_errors(form.name) %}

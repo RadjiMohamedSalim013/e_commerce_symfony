@@ -1,74 +1,69 @@
-<style>
-  .product-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    border: none;
-    overflow: hidden;
-  }
-  
-  .product-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
-  }
-  
-  .product-img {
-    height: 220px;
-    object-fit: cover;
-    transition: transform 0.5s ease;
-  }
-  
-  .product-card:hover .product-img {
-    transform: scale(1.05);
-  }
-  
-  .price-tag {
-    color: var(--primary-dark);
-    font-weight: bold;
-    font-size: 1.1rem;
-  }
-</style>
+<div class="mb-12">
+  <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-20 h-1 bg-[#FB6107]"></span>
+     </span>
+   </h2>
 
-<h2 class="text-center mb-5" style="color: var(--primary-dark); border-bottom: 2px solid var(--primary-light); display: inline-block; padding-bottom: 5px;">
-  Nos Produits Phares
-</h2>
-
-<div class="row g-4">
-  {% for product in products %}
-  <div class="col-lg-3 col-md-4 col-6">
-    <div class="card product-card h-100 shadow-sm">
-      {% if product.image %}
-      <img src="{{ asset('uploads/products/' ~ product.image) }}" 
-           alt="{{ product.name }}" class="card-img-top product-img">
-      {% else %}
-      <img src="{{ asset('images/no-product.png') }}" 
-           alt="Image par défaut" class="card-img-top product-img">
-      {% endif %}
+  {% for categoryGroup in productsByCategory %}
+    <div class="mb-12">
+      <h3 class="text-xl font-semibold text-gray-800 mb-6 pb-2 border-b-2 border-[#FB6107]">
+        {{ categoryGroup.category.name }}
+      </h3>
       
-      <div class="card-body d-flex flex-column">
-        <h5 class="card-title">{{ product.name }}</h5>
-        <div class="mt-auto">
-          <p class="price-tag mb-2">{{ product.price|number_format(0, ',', ' ') }} FCFA</p>
-          
-          <div class="d-flex justify-content-between">
-            <a href="{{ path('product_show', {id: product.id}) }}" 
-               class="btn btn-sm btn-outline-dark">
-              <i class="fas fa-eye me-1"></i> Détails
-            </a>
-            
-            <form method="post" action="{{ path('cart_add', {id: product.id}) }}">
-              <button type="submit" class="btn btn-sm btn-primary">
-                <i class="fas fa-cart-plus me-1"></i> Ajouter
-              </button>
-            </form>
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {% for product in categoryGroup.products %}
+        <div class="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-1">
+          <div class="relative overflow-hidden h-48">
+            {% if product.image %}
+            <img src="{{ asset('uploads/products/' ~ product.image) }}" 
+                 alt="{{ product.name }}" 
+                 class="w-full h-full object-cover transition-transform duration-500 hover:scale-105">
+            {% else %}
+            <img src="{{ asset('images/no-product.png') }}" 
+                 alt="Produit sans image" 
+                 class="w-full h-full object-cover">
+            {% endif %}
           </div>
+
+          <div class="p-4">
+          <h3 class="font-medium text-gray-800 mb-2 line-clamp-2">{{ product.name }}</h3>
+           <div class="flex items-center justify-between mt-3">
+              <span class="text-lg font-bold text-[#5C8001]">{{ product.price|number_format(0, ',', ' ') }} FCFA</span>
+              
+              <div class="flex space-x-2">
+                <a href="{{ path('product_show', {id: product.id}) }}" 
+                   class="p-2 text-gray-600 hover:text-[#5C8001] transition-colors"
+                   title="Voir détails">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                  </svg>
+                </a>
+                
+                <form method="post" action="{{ path('cart_add', {id: product.id}) }}">
+                  <button type="submit" 
+                          class="p-2 bg-[#7CB518] hover:bg-[#5C8001] text-white rounded transition-colors"
+                          title="Ajouter au panier">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </div>
+           </div>
+         </div>
+        {% else %}
+        <div class="col-span-full text-center py-12">
+          <div class="inline-flex items-center justify-center bg-gray-100 rounded-full p-4 mb-4">
+            <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-medium text-gray-900 mb-2">Aucun produit disponible</h3>
+          <p class="text-gray-500">Revenez plus tard pour découvrir nos nouvelles collections</p>
         </div>
-      </div>
-    </div>
-  </div>
-  {% else %}
-  <div class="col-12">
-    <div class="alert alert-info text-center">
-      Aucun produit disponible pour le moment
-    </div>
-  </div>
+        {% endfor %}
+ {% else %}
+    <div class="text-center py-12">
   {% endfor %}
 </div>

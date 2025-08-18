@@ -1,45 +1,113 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mon Panier{% endblock %}
+{% block title %}Mon Panier - Ma Boutique{% endblock %}
 
 {% block body %}
-<h1>Mon Panier</h1>
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-[#5C8001] mb-8 border-b-2 border-[#FB6107]/50 pb-2">Mon Panier</h1>
 
-{% if cart is empty %}
-    <p>Votre panier est vide.</p>
-{% else %}
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Produit</th>
-                <th>Quantité</th>
-                <th>Prix unitaire</th>
-                <th>Sous-total</th>
-                <th>Actions</th>
-            </tr>
+  {% if cart is empty %}
+  <!-- Panier vide -->
+  <div class="text-center py-12 bg-gray-50 rounded-lg">
+    <svg class="w-16 h-16 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+    </svg>
+    <h3 class="text-lg font-medium text-gray-900 mt-4">Votre panier est vide</h3>
+    <p class="text-gray-500 mt-1">Parcourez nos produits pour commencer vos achats</p>
+    <a href="{{ path('product_list') }}" class="inline-block mt-6 px-6 py-3 bg-[#5C8001] hover:bg-[#7CB518] text-white font-medium rounded-lg shadow-md transition-colors">
+      Découvrir nos produits
+    </a>
+  </div>
+  {% else %}
+  <!-- Panier avec articles -->
+  <div class="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-[#5C8001]/10">
+          <tr>
+            <th class="px-6 py-3 text-left text-xs font-medium text-[#5C8001] uppercase tracking-wider">Produit</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-[#5C8001] uppercase tracking-wider">Quantité</th>
+            <th class="px-6 py-3 text-right text-xs font-medium text-[#5C8001] uppercase tracking-wider">Prix unitaire</th>
+            <th class="px-6 py-3 text-right text-xs font-medium text-[#5C8001] uppercase tracking-wider">Sous-total</th>
+            <th class="px-6 py-3 text-center text-xs font-medium text-[#5C8001] uppercase tracking-wider">Actions</th>
+          </tr>
         </thead>
-        <tbody>
-            {% for item in cart %}
-                <tr>
-                    <td>{{ item.product.name }}</td>
-                    <td>{{ item.quantity }}</td>
-                    <td>{{ item.product.price }} €</td>
-                    <td>{{ item.subtotal }} €</td>
-                    <td>
-                        <form action="{{ path('cart_remove', {'id': item.product.id}) }}" method="post">
-                            <button class="btn btn-danger btn-sm">Supprimer</button>
-                        </form>
-                    </td>
-                </tr>
-            {% endfor %}
-            <tr>
-                <td colspan="3"><strong>Total</strong></td>
-                <td colspan="2"><strong>{{ total }} €</strong></td>
-            </tr>
+        <tbody class="divide-y divide-gray-200">
+          {% for item in cart %}
+          <tr class="hover:bg-gray-50 transition-colors">
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="flex items-center">
+                {% if item.product.image %}
+                <div class="flex-shrink-0 h-16 w-16 mr-4">
+                  <img class="h-full w-full object-contain" src="{{ asset('uploads/products/' ~ item.product.image) }}" alt="{{ item.product.name }}">
+                </div>
+                {% endif %}
+                <div class="text-sm font-medium text-gray-900">{{ item.product.name }}</div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-center">
+              <div class="flex items-center justify-center">
+                <form action="{{ path('cart_decrement', {'id': item.product.id}) }}" method="post" class="mr-2">
+                  <button type="submit" class="text-gray-500 hover:text-[#FB6107]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 12H4"/>
+                    </svg>
+                  </button>
+                </form>
+                <span class="mx-2">{{ item.quantity }}</span>
+                <form action="{{ path('cart_increment', {'id': item.product.id}) }}" method="post" class="ml-2">
+                  <button type="submit" class="text-gray-500 hover:text-[#FB6107]">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                    </svg>
+                  </button>
+                </form>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm text-gray-500">
+              {{ item.product.price|number_format(2, ',', ' ') }} €
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium text-[#5C8001]">
+              {{ item.subtotal|number_format(2, ',', ' ') }} €
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+              <form action="{{ path('cart_remove', {'id': item.product.id}) }}" method="post">
+                <button type="submit" class="text-red-500 hover:text-red-700">
+                  <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/>
+                  </svg>
+                </button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
         </tbody>
-    </table>
+        <tfoot class="bg-gray-50">
+          <tr>
+            <td colspan="3" class="px-6 py-4 text-right text-sm font-medium text-gray-900">Total</td>
+            <td colspan="2" class="px-6 py-4 text-right text-lg font-bold text-[#FB6107]">
+              {{ total|number_format(2, ',', ' ') }} €
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
 
-    <a href="{{ path('order_checkout') }}" class="btn btn-success">Passer la commande</a>
-{% endif %}
-
+  <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+    <a href="{{ path('product_list') }}" class="px-6 py-3 border border-[#5C8001] text-[#5C8001] font-medium rounded-lg shadow-sm hover:bg-[#F3DE2C]/20 transition-colors flex items-center justify-center">
+      <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+      </svg>
+      Continuer mes achats
+    </a>
+    <a href="{{ path('order_checkout') }}" class="px-6 py-3 bg-[#5C8001] hover:bg-[#7CB518] text-white font-medium rounded-lg shadow-md transition-colors flex items-center justify-center">
+      Passer la commande
+      <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+      </svg>
+    </a>
+  </div>
+  {% endif %}
+</div>
 {% endblock %}

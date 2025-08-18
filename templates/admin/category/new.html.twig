@@ -1,14 +1,101 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouvelle catégorie{% endblock %}
+{% block title %}Nouvelle catégorie - Admin{% endblock %}
 
 {% block body %}
-<h1>Ajouter une catégorie</h1>
+<div class="container mx-auto px-4 py-8 max-w-4xl">
+  <div class="bg-white shadow-lg rounded-xl overflow-hidden">
+    <!-- Header -->
+    <div class="bg-[#5C8001] px-6 py-4">
+      <div class="flex items-center justify-between">
+        <h1 class="text-xl font-bold text-white flex items-center">
+          <svg class="w-5 h-5 mr-2 text-[#F3DE2C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+          </svg>
+          Ajouter une catégorie
+        </h1>
+        <a href="{{ path('admin_category_list') }}" 
+           class="text-white hover:text-[#F3DE2C] transition-colors flex items-center text-sm">
+          <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+          </svg>
+          Retour
+        </a>
+      </div>
+    </div>
 
-{{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button type="submit">Créer</button>
-{{ form_end(form) }}
+    <!-- Formulaire -->
+    <div class="p-6">
+      {{ form_start(form, {'attr': {'class': 'space-y-6'}}) }}
+      
+        <!-- Nom -->
+        <div>
+          {{ form_label(form.name, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-2'}}) }}
+          <div class="relative mt-1 rounded-md shadow-sm">
+            {{ form_widget(form.name, {'attr': {
+              'class': 'block w-full rounded-lg border-gray-300 pl-4 pr-10 py-3 focus:border-[#5C8001] focus:ring-2 focus:ring-[#5C8001]/50 transition-all',
+              'placeholder': 'Nom de la catégorie'
+            }}) }}
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+              </svg>
+            </div>
+          </div>
+          {{ form_errors(form.name) }}
+        </div>
 
-<a href="{{ path('admin_category_list') }}">Retour à la liste</a>
+        <!-- Slug -->
+        <div>
+          {{ form_label(form.slug, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-2'}}) }}
+          <div class="relative mt-1 rounded-md shadow-sm">
+            {{ form_widget(form.slug, {'attr': {
+              'class': 'block w-full rounded-lg border-gray-300 pl-4 pr-10 py-3 focus:border-[#5C8001] focus:ring-2 focus:ring-[#5C8001]/50 transition-all',
+              'placeholder': 'slug-de-la-categorie'
+            }}) }}
+            <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+              <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+              </svg>
+            </div>
+          </div>
+          {{ form_errors(form.slug) }}
+          <p class="mt-1 text-xs text-gray-500">Le slug doit être en minuscules sans espaces (utilisez des tirets)</p>
+        </div>
+
+        <!-- Image -->
+        <div>
+          {{ form_label(form.image, null, {'label_attr': {'class': 'block text-sm font-medium text-gray-700 mb-2'}}) }}
+          <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-lg">
+            <div class="space-y-1 text-center">
+              <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+              <div class="flex text-sm text-gray-600">
+                <label class="relative cursor-pointer bg-white rounded-md font-medium text-[#5C8001] hover:text-[#7CB518] focus-within:outline-none">
+                  <span>Téléverser une image</span>
+                  {{ form_widget(form.image, {'attr': {'class': 'sr-only'}}) }}
+                </label>
+                <p class="pl-1">ou glisser-déposer</p>
+              </div>
+              <p class="text-xs text-gray-500">PNG, JPG, JPEG jusqu'à 2MB</p>
+            </div>
+          </div>
+          {{ form_errors(form.image) }}
+        </div>
+
+        <!-- Bouton de soumission -->
+        <div class="pt-6">
+          <button type="submit" 
+                  class="w-full flex justify-center items-center px-6 py-3 border border-transparent rounded-lg shadow-sm text-white bg-[#5C8001] hover:bg-[#7CB518] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#5C8001] transition-all duration-150">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+            </svg>
+            Enregistrer la catégorie
+          </button>
+        </div>
+      {{ form_end(form) }}
+    </div>
+  </div>
+</div>
 {% endblock %}

@@ -1,77 +1,161 @@
-<header class="bg-[#A1211E]">
+<header class="bg-[#5C8001] backdrop-blur-md bg-opacity-90 sticky top-0 z-50 border-b border-[#FBB02D]/20">
   <div class="container mx-auto px-4">
-    <nav class="flex flex-wrap items-center justify-between py-3">
-      <!-- Logo -->
-      <a class="flex items-center text-2xl font-bold text-white" href="{{ path('home') }}">
-        <svg class="w-6 h-6 mr-2 text-[#F1D7C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
-        </svg>
-        Mon E-commerce
-      </a>
+    <div class="flex items-center justify-between h-20">
+      <!-- Logo Premium -->
+      <div class="flex items-center group">
+        <div class="p-2.5 bg-[#F3DE2C] rounded-xl shadow-lg transform group-hover:rotate-12 transition-all duration-300">
+          <svg class="w-6 h-6 text-[#5C8001]" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" 
+                  stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <a href="{{ path('home') }}" class="ml-3 text-2xl font-bold text-white tracking-tight">
+          <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#F3DE2C] to-[#FBB02D]">Luxe</span>Shop
+        </a>
+      </div>
 
-      <!-- Menu mobile -->
-      <button class="md:hidden p-2 text-white focus:outline-none" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+      <!-- Navigation Premium -->
+      <nav class="hidden lg:flex items-center space-x-1">
+        <a href="{{ path('home') }}" class="px-4 py-3 text-white/90 hover:text-white transition-all relative group">
+          <span class="flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+            </svg>
+            <span class="opacity-90">Accueil</span>
+          </span>
+          <span class="absolute bottom-2 left-1/2 w-0 h-0.5 bg-[#F3DE2C] group-hover:w-4/5 group-hover:left-1/10 transition-all duration-300"></span>
+        </a>
+        
+        <a href="{{ path('product_list') }}" class="px-4 py-3 text-white/90 hover:text-white transition-all relative group">
+          <span class="flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+            </svg>
+            <span class="opacity-90">Produits</span>
+          </span>
+          <span class="absolute bottom-2 left-1/2 w-0 h-0.5 bg-[#F3DE2C] group-hover:w-4/5 group-hover:left-1/10 transition-all duration-300"></span>
+        </a>
+        
+        <a href="{{ path('cart_index') }}" class="px-4 py-3 text-white/90 hover:text-white transition-all relative group">
+          <span class="flex items-center">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+            </svg>
+            <span class="opacity-90">Panier</span>
+            {% if cart_items_count() > 0 %}
+              <span class="ml-2 text-xs bg-white text-[#FB6107] font-bold px-1.5 py-0.5 rounded-full">{{ cart_items_count() }}</span>
+            {% endif %}
+          </span>
+          <span class="absolute bottom-2 left-1/2 w-0 h-0.5 bg-[#F3DE2C] group-hover:w-4/5 group-hover:left-1/10 transition-all duration-300"></span>
+        </a>
+        
+        <div class="relative group ml-2">
+          {% if app.user %}
+            <button class="flex items-center space-x-1 px-4 py-3 text-white/90 hover:text-white transition-all">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+              </svg>
+              <span>Mon compte</span>
+              <svg class="w-4 h-4 transform group-hover:rotate-180 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+              </svg>
+            </button>
+            
+            <div class="absolute right-0 mt-2 w-56 origin-top-right bg-white rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform group-hover:translate-y-0 translate-y-1">
+              <a href="{{ path('account_profile') }}" class="block px-4 py-3 text-gray-800 hover:bg-[#FB6107]/10 hover:text-[#FB6107] transition-colors">Mon profil</a>
+              <a href="{{ path('account_orders') }}" class="block px-4 py-3 text-gray-800 hover:bg-[#FB6107]/10 hover:text-[#FB6107] transition-colors">Mes commandes</a>
+              <a href="{{ path('app_logout') }}" class="block px-4 py-3 text-gray-800 hover:bg-[#FB6107]/10 hover:text-[#FB6107] transition-colors border-t border-gray-100">Déconnexion</a>
+            </div>
+          {% else %}
+            <a href="{{ path('login') }}" class="flex items-center space-x-1 px-4 py-3 text-white/90 hover:text-white transition-all">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+              </svg>
+              <span>Connexion</span>
+            </a>
+          {% endif %}
+        </div>
+      </nav>
+
+      <!-- Bouton Mobile Premium -->
+      <button class="lg:hidden p-2.5 rounded-full bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white/20 transition-all" id="mobileMenuButton">
+        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
         </svg>
       </button>
+    </div>
+  </div>
 
-      <!-- Navigation -->
-      <div class="hidden w-full md:flex md:w-auto md:items-center" id="navbarContent">
-        <ul class="flex flex-col mt-4 md:flex-row md:space-x-8 md:mt-0">
-          <li>
-            <a class="flex items-center px-3 py-2 text-white hover:bg-[#C71A17]/50 hover:translate-y-[-2px] transition-all" href="{{ path('home') }}">
-              <svg class="w-5 h-5 mr-2 text-[#F1D7C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
-              </svg>
-              Accueil
-            </a>
-          </li>
-          <li>
-            <a class="flex items-center px-3 py-2 text-white hover:bg-[#C71A17]/50 hover:translate-y-[-2px] transition-all" href="{{ path('product_list') }}">
-              <svg class="w-5 h-5 mr-2 text-[#F1D7C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
-              </svg>
-              Produits
-            </a>
-          </li>
-          <li>
-            <a class="flex items-center px-3 py-2 text-white hover:bg-[#C71A17]/50 hover:translate-y-[-2px] transition-all" href="{{ path('order_checkout') }}">
-              <svg class="w-5 h-5 mr-2 text-[#F1D7C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
-              </svg>
-              Panier
-            </a>
-          </li>
-          {% if app.user %}
-            <li>
-              <a class="flex items-center px-3 py-2 text-white hover:bg-[#C71A17]/50 hover:translate-y-[-2px] transition-all" href="{{ path('cart_index') }}">
-                <svg class="w-5 h-5 mr-2 text-[#F1D7C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
-                </svg>
-                Commandes
-              </a>
-            </li>
-            <li>
-              <a class="flex items-center px-3 py-2 text-white hover:bg-[#C71A17]/50 hover:translate-y-[-2px] transition-all" href="{{ path('app_logout') }}">
-                <svg class="w-5 h-5 mr-2 text-[#F1D7C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
-                </svg>
-                Déconnexion
-              </a>
-            </li>
-          {% else %}
-            <li>
-              <a class="flex items-center px-3 py-2 text-white hover:bg-[#C71A17]/50 hover:translate-y-[-2px] transition-all" href="{{ path('login') }}">
-                <svg class="w-5 h-5 mr-2 text-[#F1D7C8]" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path>
-                </svg>
-                Connexion
-              </a>
-            </li>
-          {% endif %}
-        </ul>
+  <!-- Menu Mobile Premium -->
+  <div class="lg:hidden hidden bg-white/95 backdrop-blur-lg shadow-xl" id="mobileMenu">
+    <div class="container mx-auto px-4 py-3">
+      <a href="{{ path('home') }}" class="flex items-center px-4 py-3 text-[#5C8001] hover:bg-[#FB6107]/10 rounded-lg transition-all">
+        <svg class="w-5 h-5 mr-3 text-[#FB6107]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+        </svg>
+        Accueil
+      </a>
+      <a href="{{ path('product_list') }}" class="flex items-center px-4 py-3 text-[#5C8001] hover:bg-[#FB6107]/10 rounded-lg transition-all">
+        <svg class="w-5 h-5 mr-3 text-[#FB6107]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+        </svg>
+        Produits
+      </a>
+      <a href="{{ path('cart_index') }}" class="flex items-center px-4 py-3 text-[#5C8001] hover:bg-[#FB6107]/10 rounded-lg transition-all">
+        <svg class="w-5 h-5 mr-3 text-[#FB6107]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/>
+        </svg>
+        Panier
+        {% if cart_items_count() > 0 %}
+          <span class="ml-auto text-xs bg-[#FB6107] text-white px-2 py-1 rounded-full">{{ cart_items_count() }}</span>
+        {% endif %}
+      </a>
+      <div class="border-t border-gray-200 mt-2 pt-2">
+        {% if app.user %}
+          <a href="{{ path('account_profile') }}" class="flex items-center px-4 py-3 text-[#5C8001] hover:bg-[#FB6107]/10 rounded-lg transition-all">
+            <svg class="w-5 h-5 mr-3 text-[#FB6107]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+            </svg>
+            Mon compte
+          </a>
+          <a href="{{ path('account_orders') }}" class="flex items-center px-4 py-3 text-[#5C8001] hover:bg-[#FB6107]/10 rounded-lg transition-all pl-12">
+            <svg class="w-5 h-5 mr-3 text-[#FB6107]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+            </svg>
+            Mes commandes
+          </a>
+          <a href="{{ path('app_logout') }}" class="flex items-center px-4 py-3 text-[#5C8001] hover:bg-[#FB6107]/10 rounded-lg transition-all pl-12">
+            <svg class="w-5 h-5 mr-3 text-[#FB6107]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+            </svg>
+            Déconnexion
+          </a>
+        {% else %}
+          <a href="{{ path('login') }}" class="flex items-center px-4 py-3 text-[#5C8001] hover:bg-[#FB6107]/10 rounded-lg transition-all">
+            <svg class="w-5 h-5 mr-3 text-[#FB6107]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+            </svg>
+            Connexion
+          </a>
+        {% endif %}
       </div>
-    </nav>
+    </div>
   </div>
 </header>
+
+<script>
+  // Gestion premium du menu mobile
+  const menuButton = document.getElementById('mobileMenuButton');
+  const mobileMenu = document.getElementById('mobileMenu');
+  
+  menuButton.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+    menuButton.innerHTML = mobileMenu.classList.contains('hidden') ? 
+      `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>` :
+      `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/>
+      </svg>`;
+  });
+</script>
