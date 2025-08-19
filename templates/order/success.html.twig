@@ -3,41 +3,74 @@
 {% block title %}Commande réussie{% endblock %}
 
 {% block body %}
-<h1>Commande réussie !</h1>
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-8 px-4">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header avec animation de succès -->
+    <div class="text-center mb-10">
+      <div class="flex justify-center mb-6">
+       
+      </div>
+      <h1 class="text-4xl font-bold text-gray-800 mb-4">Commande confirmée !</h1>
+      <p class="text-xl text-gray-600">Merci {{ app.user.firstname }} pour votre commande.</p>
+    </div>
 
-<p>Merci {{ app.user.firstname }} pour votre commande.</p>
+    <!-- Carte de contenu principale -->
+    <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+      <!-- En-tête avec dégradé -->
+      <div class="bg-[#5C8001] p-6 text-white">
+        <h2 class="text-2xl font-bold flex items-center">
+          <svg class="w-8 h-8 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+          </svg>
+          Détails de votre commande
+        </h2>
+        <p class="mt-2 opacity-90">Votre commande a été enregistrée avec succès</p>
+      </div>
 
-<h2>Détails de votre commande :</h2>
+      <!-- Tableau des produits -->
+      <div class="p-6">
+        <div class="overflow-x-auto rounded-lg shadow">
+          <table class="min-w-full bg-white">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="py-4 px-6 text-left font-semibold text-gray-700">Produit</th>
+                <th class="py-4 px-6 text-center font-semibold text-gray-700">Quantité</th>
+                <th class="py-4 px-6 text-right font-semibold text-gray-700">Prix unitaire</th>
+                <th class="py-4 px-6 text-right font-semibold text-gray-700">Total</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+              {% set total = 0 %}
+              {% for item in order.orderItems %}
+                {% set total = total + (item.price * item.quantity) %}
+                <tr class="hover:bg-gray-50 transition-colors">
+                  <td class="py-4 px-6 text-gray-800 font-medium">{{ item.product.name }}</td>
+                  <td class="py-4 px-6 text-center text-gray-700">{{ item.quantity }}</td>
+                  <td class="py-4 px-6 text-right text-gray-700">{{ item.price }} CFA</td>
+                  <td class="py-4 px-6 text-right text-green-600 font-semibold">{{ (item.price * item.quantity)|number_format(2) }} CFA</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+            <tfoot class="bg-gray-50">
+              <tr>
+                <th colspan="3" class="py-4 px-6 text-right font-bold text-gray-800">Total général</th>
+                <th class="py-4 px-6 text-right text-green-700 font-bold text-lg">{{ total|number_format(2) }} CFA</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Produit</th>
-            <th>Quantité</th>
-            <th>Prix unitaire</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% set total = 0 %}
-        {% for item in order.orderItems %}
-            {% set total = total + (item.price * item.quantity) %}
-            <tr>
-                <td>{{ item.product.name }}</td>
-                <td>{{ item.quantity }}</td>
-                <td>{{ item.price }} €</td>
-                <td>{{ (item.price * item.quantity)|number_format(2) }} €</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr>
-            <th colspan="3">Total général</th>
-            <th>{{ total|number_format(2) }} €</th>
-        </tr>
-    </tfoot>
-</table>
-
-<a href="{{ path('product_list') }}" class="btn btn-primary">Continuer vos achats</a>
-
+        <!-- Bouton de retour -->
+        <div class="mt-8 text-center">
+          <a href="{{ path('product_list') }}" class="inline-flex items-center px-6 py-3 bg-[#5C6000] text-white font-semibold rounded-lg shadow-md hover:bg-[#5C8001] transition-all duration-300 transform hover:-translate-y-1">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path>
+            </svg>
+            Continuer vos achats
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 {% endblock %}
